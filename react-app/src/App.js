@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Home from "./Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import InventoryList from "./InventoryList";
-import InventoryEdit from "./InventoryEdit";
+import BookList from "./BookList";
+import BookEdit from "./BookEdit";
 import "./App.css";
 
 class App extends Component {
@@ -11,8 +11,8 @@ class App extends Component {
       <Router>
         <Switch>
           <Route path="/" exact={true} component={Home} />
-          <Route path="/inventories" exact={true} component={InventoryList} />
-          <Route path="/inventories/:id" component={InventoryEdit} />
+          <Route path="/books" exact={true} component={BookList} />
+          <Route path="/books/:id" component={BookEdit} />
         </Switch>
       </Router>
     );

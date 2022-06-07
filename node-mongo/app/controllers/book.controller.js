@@ -5,7 +5,7 @@ const Book = mongoose.model("Book");
 exports.createBook= (req, res) => {
   const book = new Book({
     id: req.body.id,
-    bookname: req.body.bookname,
+    title: req.body.title,
     author: req.body.author,
   });
   // Save a Inventory in the MongoDB
@@ -85,7 +85,7 @@ exports.updateBook = (req, res) => {
     req.body._id,
     {
       id: req.body.id,
-      bookname: req.body.bookname,
+      title: req.body.title,
       author: req.body.author,
     },
     { new: false }

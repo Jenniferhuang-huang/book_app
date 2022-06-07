@@ -5,11 +5,11 @@ import { Button, ButtonGroup, Container, Table } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-class InventoryList extends Component {
+class BookList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inventories: [],
+      books: [],
       isLoading: true,
     };
   }
@@ -17,13 +17,13 @@ class InventoryList extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch("api/inventories")
+    fetch("api/books")
       .then((response) => response.json())
-      .then((data) => this.setState({ inventories: data, isLoading: false }));
+      .then((data) => this.setState({ books: data, isLoading: false }));
   }
 
-  removeInv = async (id) => {
-    await fetch(`/api/inventory/${id}`, {
+  removeBook = async (id) => {
+    await fetch(`/api/book/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -32,33 +32,31 @@ class InventoryList extends Component {
     });
     console.log("Remove Done!");
     //update inventory state minus removed item
-    let updatedInventories = [...this.state.inventories].filter(
+    let updatedBooks = [...this.state.books].filter(
       (i) => i._id !== id
     );
-    this.setState({ inventories: updatedInventories });
+    this.setState({ books: updatedBooks });
   };
 
   render() {
-    const { inventories, isLoading } = this.state;
+    const { books, isLoading } = this.state;
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const inventoryList = inventories.map((inventory) => {
+    const bookList = books.map((book) => {
       return (
-        <tr key={inventory._id}>
-          <td style={{ whiteSpace: "nowrap" }}>{inventory.prodname}</td>
-          <td>{inventory.qty}</td>
-          <td>{inventory.price}</td>
-          <td>{inventory.status}</td>
+        <tr key={book._id}>
+          <td style={{ whiteSpace: "nowrap" }}>{book.title}</td>
+          <td>{book.author}</td>
           <td>
             <ButtonGroup>
               <Button
                 size="sm"
                 color="primary"
                 tag={Link}
-                to={"/inventories/" + inventory._id}
+                to={"/books/" + book._id}
               >
                 Edit
               </Button>
@@ -66,7 +64,7 @@ class InventoryList extends Component {
                 size="sm"
                 color="danger"
                 tag={Link}
-                onClick={() => this.removeInv(inventory._id)}
+                onClick={() => this.removeBook(book._id)}
               >
                 Delete
               </Button>
@@ -85,7 +83,7 @@ class InventoryList extends Component {
               color="success"
               className="my-4"
               tag={Link}
-              to="/inventories/new"
+              to="/books/new"
             >
               Add inventory
             </Button>
@@ -94,14 +92,12 @@ class InventoryList extends Component {
           <Table className="mt-4">
             <thead>
               <tr>
-                <th width="20%">Product Name</th>
-                <th width="15%">Quantity</th>
-                <th width="15%">Price</th>
-                <th width="15%">Status</th>
+                <th width="20%">Book Name</th>
+                <th width="15%">Author</th>
                 <th width="15%">Actions</th>
               </tr>
             </thead>
-            <tbody>{inventoryList}</tbody>
+            <tbody>{bookList}</tbody>
           </Table>
         </Container>
       </div>
@@ -109,4 +105,4 @@ class InventoryList extends Component {
   }
 }
 
-export default InventoryList;
+export default BookList;

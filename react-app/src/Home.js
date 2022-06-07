@@ -12,8 +12,8 @@ class Home extends Component {
         <AppNavbar />
         <Container fluid>
           <Button className="m-5 nav bg-light">
-            <Link to="/inventories" className="nav-link">
-              Manage Inventory List
+            <Link to="/books" className="nav-link">
+              Manage Book List
             </Link>
           </Button>
         </Container>
